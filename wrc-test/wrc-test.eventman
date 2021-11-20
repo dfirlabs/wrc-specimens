@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<instrumentationManifest
+    xsi:schemaLocation="http://schemas.microsoft.com/win/2004/08/events eventman.xsd"
+    xmlns="http://schemas.microsoft.com/win/2004/08/events"
+    xmlns:win="http://manifests.microsoft.com/win/2004/08/windows/events"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:trace="http://schemas.microsoft.com/win/2004/08/events/trace">
+    <instrumentation>
+        <events>
+            <provider
+                name="WRC test provider"
+                guid="{67883BBC-D592-4D02-8E29-66907FCB07D6}"
+                symbol="WRC_TEST_PROVIDER"
+                resourceFileName="c:\Windows\wrc-test.dll"
+                messageFileName="c:\Windows\wrc-test.dll">
+                <events>
+                    <event
+                        symbol="WRC_TEST_VALUE"
+                        value="1"
+                        version="1"
+                        template="Test value"
+                        message="$(string.WRC test provider.event.1.message)">
+                    </event>
+                </events>
+                <templates>
+                    <template tid="Test value">
+                        <data
+                            name="name"
+                            inType="win:UnicodeString"
+                            outType="xs:string">
+                        </data>
+                        <data
+                            name="value"
+                            inType="win:Int32"
+                            outType="xs:int">
+                        </data>
+                    </template>
+                </templates>
+            </provider>
+        </events>
+    </instrumentation>
+    <localization>
+        <resources culture="en-US">
+            <stringTable>
+                <string
+                    id="WRC test provider.event.1.message"
+                    value="A test value">
+                </string>
+            </stringTable>
+        </resources>
+    </localization>
+</instrumentationManifest>
