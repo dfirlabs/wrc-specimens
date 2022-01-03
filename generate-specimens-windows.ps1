@@ -96,6 +96,22 @@ If (${PlatformToolset})
 	$MSBuildOptions = "${MSBuildOptions} /property:PlatformToolset=${PlatformToolset}"
 }
 
+$Mc = ""
+
+$Results = Get-ChildItem -Path "C:\Program Files (x86)\Windows Kits\*\bin\*\x86\mc.exe" -Recurse -ErrorAction SilentlyContinue -Force
+
+If ($Results.Count -gt 0)
+{
+	$Mc = $Results[0].FullName
+}
+
+If (${Mc})
+{
+	Invoke-Expression "& '${Mc}' -A wrc-test\wrc-test.mc -h wrc-test -r wrc-test"
+
+	Copy-Item -Destination "rc-files\messagetable.rc" -Force -Path "wrc-test\wrc-test.rc"
+}
+
 New-Item -Force -ItemType "directory" -Name "specimens" -Path "."
 
 $RCFiles = Get-ChildItem -Include *.rc -Path "rc-files\*"
