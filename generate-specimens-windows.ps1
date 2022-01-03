@@ -110,6 +110,10 @@ If (${Mc})
 	Invoke-Expression "& '${Mc}' -A wrc-test\wrc-test.mc -h wrc-test -r wrc-test"
 
 	Copy-Item -Destination "rc-files\messagetable.rc" -Force -Path "wrc-test\wrc-test.rc"
+
+	Invoke-Expression "& '${Mc}' -um wrc-test\wrc-test.eventman -r wrc-test"
+
+	Copy-Item -Destination "rc-files\wevt_template.rc" -Force -Path "wrc-test\wrc-test.rc"
 }
 
 New-Item -Force -ItemType "directory" -Name "specimens" -Path "."
