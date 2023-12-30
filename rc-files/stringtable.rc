@@ -1,0 +1,9 @@
+LANGUAGE 9, 1
+
+STRINGTABLE
+BEGIN
+1 L"My first string"
+12 L"My second string"
+123 L"My third string"
+1234 L"My fourth string"
+END

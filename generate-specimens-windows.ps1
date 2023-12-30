@@ -1,4 +1,4 @@
-# Script that builds a wrc-test resouce DLL file
+# Script to generate Windows resource test files
 
 Param (
 	[string]$Configuration = ${Env:Configuration},
@@ -95,13 +95,57 @@ If (${PlatformToolset})
 {
 	$MSBuildOptions = "${MSBuildOptions} /property:PlatformToolset=${PlatformToolset}"
 }
-If (${Env:APPVEYOR} -eq "True")
+
+$Mc = ""
+
+$Results = Get-ChildItem -Path "C:\Program Files (x86)\Windows Kits\*\bin\*\x86\mc.exe" -Recurse -ErrorAction SilentlyContinue -Force
+
+If ($Results.Count -gt 0)
 {
-	Invoke-Expression -Command "& '${MSBuild}' ${MSBuildOptions} ${VSSolutionFile} /logger:'C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll'";
+	$Mc = $Results[0].FullName
 }
-Else
+
+If (${Mc})
 {
+	Invoke-Expression "& '${Mc}' -A wrc-test\wrc-test.mc -h wrc-test -r wrc-test"
+
+	Copy-Item -Destination "rc-files\messagetable.rc" -Force -Path "wrc-test\wrc-test.rc"
+
+	Invoke-Expression "& '${Mc}' -um wrc-test\wrc-test.eventman -r wrc-test"
+
+	Copy-Item -Destination "rc-files\wevt_template.rc" -Force -Path "wrc-test\wrc-test.rc"
+}
+
+New-Item -Force -ItemType "directory" -Name "specimens" -Path "."
+
+$RCFiles = Get-ChildItem -Include *.rc -Path "rc-files\*"
+
+Foreach (${File} in ${RCFiles})
+{
+	$Filename = ${File}.Basename
+
+	Copy-Item -Destination "wrc-test\wrc-test.rc" -Force -Path "rc-files\${Filename}.rc"
+
+	Remove-Item -ErrorAction Ignore -Force -Path "Release" -Recurse
+	Remove-Item -ErrorAction Ignore -Force -Path "wrc-test\Release" -Recurse
+
 	Invoke-Expression -Command "& '${MSBuild}' ${MSBuildOptions} ${VSSolutionFile}"
+
+	Copy-Item -Destination "specimens\wrc-test-${Filename}.dll" -Force -Path "Release\wrc-test.dll"
+}
+
+$Muirct = ""
+
+$Results = Get-ChildItem -Path "C:\Program Files (x86)\Windows Kits\*\bin\*\x86\muirct.exe" -Recurse -ErrorAction SilentlyContinue -Force
+
+If ($Results.Count -gt 0)
+{
+	$Muirct = $Results[0].FullName
+}
+
+If (${Muirct})
+{
+	Invoke-Expression "& '${Muirct}' -q rcconfig-files/stringtable.rcconfig specimens\wrc-test-stringtable.dll specimens\wrc-test-stringtable.dll.ln specimens\wrc-test-stringtable.dll.mui"
 }
 
 Exit ${ExitSuccess}

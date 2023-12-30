@@ -16,25 +16,214 @@
                 messageFileName="c:\Windows\wrc-test.dll">
                 <events>
                     <event
-                        symbol="WRC_TEST_VALUE"
+                        symbol="WRC_TEST_EVENT"
                         value="1"
                         version="1"
-                        template="Test value"
+                        template="template1"
                         message="$(string.WRC test provider.event.1.message)">
                     </event>
                 </events>
                 <templates>
-                    <template tid="Test value">
+                    <template name="MyTemplate1" tid="template1">
                         <data
-                            name="name"
+                            name="item1a"
                             inType="win:UnicodeString"
                             outType="xs:string">
                         </data>
                         <data
-                            name="value"
+                            name="item1b"
+                            inType="win:UnicodeString"
+                            outType="win:Xml">
+                        </data>
+                        <data
+                            name="item1c"
+                            inType="win:UnicodeString"
+                            outType="win:Json">
+                        </data>
+                        <data
+                            name="item2"
+                            inType="win:AnsiString"
+                            outType="win:Utf8">
+                        </data>
+                        <data
+                            name="item3"
+                            inType="win:Int8"
+                            outType="xs:byte">
+                        </data>
+                        <data
+                            name="item4"
+                            inType="win:UInt8"
+                            outType="xs:unsignedByte">
+                        </data>
+                        <data
+                            name="item5"
+                            inType="win:Int16"
+                            outType="xs:short">
+                        </data>
+                        <data
+                            name="item6a"
+                            inType="win:UInt16"
+                            outType="xs:unsignedShort">
+                        </data>
+                        <data
+                            name="item6b"
+                            inType="win:UInt16"
+                            outType="win:Port">
+                        </data>
+                        <data
+                            name="item6c"
+                            inType="win:UInt16"
+                            outType="win:HexInt16">
+                        </data>
+                        <data
+                            name="item7a"
                             inType="win:Int32"
                             outType="xs:int">
                         </data>
+                        <data
+                            name="item7b"
+                            inType="win:Int32"
+                            outType="win:HResult">
+                        </data>
+                        <data
+                            name="item8a"
+                            inType="win:UInt32"
+                            outType="xs:unsignedInt">
+                        </data>
+                        <data
+                            name="item8b"
+                            inType="win:UInt32"
+                            outType="win:PID">
+                        </data>
+                        <data
+                            name="item8c"
+                            inType="win:UInt32"
+                            outType="win:TID">
+                        </data>
+                        <data
+                            name="item8d"
+                            inType="win:UInt32"
+                            outType="win:IPv4">
+                        </data>
+                        <data
+                            name="item8e"
+                            inType="win:UInt32"
+                            outType="win:ETWTIME">
+                        </data>
+                        <data
+                            name="item8f"
+                            inType="win:UInt32"
+                            outType="win:Win32Error">
+                        </data>
+                        <data
+                            name="item8g"
+                            inType="win:UInt32"
+                            outType="win:NTSTATUS">
+                        </data>
+                        <data
+                            name="item8h"
+                            inType="win:UInt32"
+                            outType="win:ErrorCode">
+                        </data>
+                        <data
+                            name="item9"
+                            inType="win:Int64"
+                            outType="xs:long">
+                        </data>
+                        <data
+                            name="item10a"
+                            inType="win:UInt64"
+                            outType="xs:unsignedLong">
+                        </data>
+                        <data
+                            name="item11"
+                            inType="win:Float"
+                            outType="xs:float">
+                        </data>
+                        <data
+                            name="item12"
+                            inType="win:Double"
+                            outType="xs:double">
+                        </data>
+                        <data
+                            name="item13"
+                            inType="win:Boolean"
+                            outType="xs:boolean">
+                        </data>
+                        <data
+                            name="item14a"
+                            inType="win:Binary"
+                            length="199"
+                            outType="xs:hexBinary">
+                        </data>
+                        <data
+                            name="item14b"
+                            inType="win:Binary"
+                            length="16"
+                            outType="win:IPv6">
+                        </data>
+                        <data
+                            name="item14c"
+                            inType="win:Binary"
+                            length="32"
+                            outType="win:SocketAddress">
+                        </data>
+                        <data
+                            name="item14d"
+                            inType="win:Binary"
+                            length="64"
+                            outType="win:Pkcs7WithTypeInfo">
+                        </data>
+                        <data
+                            name="item15"
+                            inType="win:GUID"
+                            outType="xs:GUID">
+                        </data>
+                        <data
+                            name="item16"
+                            inType="win:Pointer"
+                            outType="win:HexInt64">
+                        </data>
+                        <data
+                            name="item17"
+                            inType="win:FILETIME"
+                            outType="xs:dateTime">
+                        </data>
+                        <data
+                            name="item18"
+                            inType="win:SYSTEMTIME"
+                            outType="win:DateTimeCultureInsensitive">
+                        </data>
+                        <data
+                            name="item19"
+                            inType="win:SID"
+                            outType="xs:string">
+                        </data>
+                        <data
+                            name="item20"
+                            inType="win:HexInt32"
+                            outType="win:HexInt32">
+                        </data>
+                        <data
+                            name="item21"
+                            inType="win:HexInt64"
+                            outType="win:HexInt64">
+                        </data>
+                        <data
+                            name="multiitem7"
+                            inType="win:Int32"
+                            count="23"
+                            outType="xs:int">
+                        </data>
+                    </template>
+                    <template tid="template2">
+			<UserData>
+                            <EventProcessingFailure xmlns="http://manifests.microsoft.com/win/2004/08/windows/eventlog">
+                                <Error Code="15005" /> 
+                                <EventID>0</EventID> 
+                                <PublisherID>Microsoft-Windows-Security-Auditing</PublisherID> 
+                            </EventProcessingFailure>
+                        </UserData>
                     </template>
                 </templates>
             </provider>
@@ -45,7 +234,7 @@
             <stringTable>
                 <string
                     id="WRC test provider.event.1.message"
-                    value="A test value">
+                    value="A test event message">
                 </string>
             </stringTable>
         </resources>

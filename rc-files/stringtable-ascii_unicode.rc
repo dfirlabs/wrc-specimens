@@ -1,0 +1,10 @@
+LANGUAGE 9, 1
+
+STRINGTABLE
+BEGIN
+1 L"5\x00BC-Inch Floppy Disk"
+2 "5\xBC-Inch Floppy Disk"
+3 L"Don't confuse \x2229 (intersection) with \x222A (union)"
+4 "Copyright \xA92001"
+5 L"Copyright \x00a92001"
+END
