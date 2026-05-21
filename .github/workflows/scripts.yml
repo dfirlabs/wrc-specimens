@@ -1,0 +1,21 @@
+# Checks scripts.
+name: scripts
+on:
+  pull_request:
+  push:
+permissions: read-all
+jobs:
+  run_scripts_windows:
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v6
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v3
+    - name: Generate test data
+      run: |
+        & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" wrc-test.sln /Upgrade
+        .\generate-specimens-windows.ps1 -VisualStudioVersion 2022 -Configuration Release -Platform x64
+    - uses: actions/upload-artifact@v7
+      with:
+        name: specimens-windows
+        path: specimens/*
